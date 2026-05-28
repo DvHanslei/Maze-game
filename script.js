@@ -7,8 +7,8 @@ const levelText = document.getElementById("level");
 const timeText = document.getElementById("time");
 
 const TILE_SIZE = 30;
-let rows = 20;
-let cols = 20;
+let rows = 30;
+let cols = 30;
 let maze = [];
 let player = { x: 1, y: 1 };
 let exit = { x: cols - 2, y: rows - 2 };
