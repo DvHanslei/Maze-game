@@ -1,5 +1,5 @@
 const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("3d");
+const ctx = canvas.getContext("2d");
 canvas.width = 600;
 canvas.height = 600;
 
@@ -7,8 +7,8 @@ const levelText = document.getElementById("level");
 const timeText = document.getElementById("time");
 
 const TILE_SIZE = 20;
-let rows = 10;
-let cols = 10;
+let rows = 20;
+let cols = 20;
 let maze = [];
 let player = { x: 1, y: 1 };
 let exit = { x: cols - 2, y: rows - 2 };
@@ -89,10 +89,10 @@ function drawMaze() {
       if (maze[y][x] === 1) {
         // Tenta desenhar imagem da parede, senão usa cor
         if (imgParede.complete && imgParede.naturalWidth > 0) {
-          ctx.drawImage(imgParede, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+          ctx.drawImage(imgParede, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE) /2;
         } else {
           ctx.fillStyle = "#333";
-          ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+          ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE) /2;
         }
       } else {
         ctx.fillStyle = "#ccc";
