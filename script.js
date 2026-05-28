@@ -1,34 +1,38 @@
-
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
+// Mantém o tamanho do canvas idêntico ao seu original
 canvas.width = 600;
 canvas.height = 600;
- 
-const levelText = document.getElementById("leval");
-const timeText = document.getElementById("Time");
- 
-const TILE_SIZE = 30;
-let rows = 20;
-let cols = 20;
+
+const levelText = document.getElementById("level");
+const timeText = document.getElementById("time");
+
+// Mudança crucial: tamanho ímpar para o algoritmo funcionar sem criar paredes extras,
+// ajustando o tamanho do bloco para caber perfeitamente nos 600px do canvas.
+const TILE_SIZE = 28; 
+let rows = 21;
+let cols = 21;
 let maze = [];
 let player = { x: 1, y: 1 };
 let exit = { x: cols - 2, y: rows - 2 };
 let level = 1;
 let timer = 0;
- 
+
 // Imagens
 const imgHeroi = new Image();
 imgHeroi.src = "Hansleizito.png";
+
 const imgBau = new Image();
 imgBau.src = "bauzito.png";
+
 const imgParede = new Image();
 imgParede.src = "paredezito.png";
- 
+
 setInterval(() => {
   timer++;
   timeText.textContent = timer;
 }, 1000);
- 
+
 function createMaze() {
   maze = [];
   for (let y = 0; y < rows; y++) {
@@ -38,7 +42,7 @@ function createMaze() {
     }
     maze.push(row);
   }
- 
+
   function carve(x, y) {
     const directions = shuffle([
       [0, -2],
@@ -62,25 +66,19 @@ function createMaze() {
       }
     }
   }
- 
+
   carve(1, 1);
+  
+  // Posiciona as variáveis e limpa os caminhos inicial e final de forma precisa
   maze[1][1] = 0;
+  maze[rows - 2][cols - 2] = 0;
+
   player.x = 1;
   player.y = 1;
- 
-  // Coloca o baú sempre num caminho aberto perto do canto inferior direito
-  let found = false;
-  for (let dy = rows - 2; dy >= 1 && !found; dy--) {
-    for (let dx = cols - 2; dx >= 1 && !found; dx--) {
-      if (maze[dy][dx] === 0) {
-        exit.x = dx;
-        exit.y = dy;
-        found = true;
-      }
-    }
-  }
+  exit.x = cols - 2;
+  exit.y = rows - 2;
 }
- 
+
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -88,10 +86,10 @@ function shuffle(array) {
   }
   return array;
 }
- 
+
 function drawMaze() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
- 
+
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       if (maze[y][x] === 1) {
@@ -107,16 +105,16 @@ function drawMaze() {
       }
     }
   }
- 
-  // Desenha o baú
+
+  // Desenha saída (baú)
   if (imgBau.complete && imgBau.naturalWidth > 0) {
     ctx.drawImage(imgBau, exit.x * TILE_SIZE, exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   } else {
     ctx.fillStyle = "gold";
     ctx.fillRect(exit.x * TILE_SIZE, exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
- 
-  // Desenha o herói
+
+  // Desenha herói
   if (imgHeroi.complete && imgHeroi.naturalWidth > 0) {
     ctx.drawImage(imgHeroi, player.x * TILE_SIZE, player.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   } else {
@@ -130,7 +128,7 @@ function drawMaze() {
     ctx.fill();
   }
 }
- 
+
 function movePlayer(dx, dy) {
   let nx = player.x + dx;
   let ny = player.y + dy;
@@ -141,21 +139,17 @@ function movePlayer(dx, dy) {
     drawMaze();
   }
 }
- 
+
 function checkWin() {
   if (player.x === exit.x && player.y === exit.y) {
     level++;
     levelText.textContent = level;
-    if (rows < 39) {
-      rows += 2;
-      cols += 2;
-    }
     createMaze();
     drawMaze();
     alert("Fase concluída! 🎉");
   }
 }
- 
+
 window.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "ArrowUp":    movePlayer(0, -1); break;
@@ -164,14 +158,13 @@ window.addEventListener("keydown", (e) => {
     case "ArrowRight": movePlayer(1, 0);  break;
   }
 });
- 
+
 // Botões mobile
 document.getElementById("up").addEventListener("click", () => movePlayer(0, -1));
 document.getElementById("down").addEventListener("click", () => movePlayer(0, 1));
 document.getElementById("left").addEventListener("click", () => movePlayer(-1, 0));
-document.getElementById("rigth").addEventListener("click", () => movePlayer(1, 0));
- 
+document.getElementById("right").addEventListener("click", () => movePlayer(1, 0));
+
 // Iniciar jogo
 createMaze();
 drawMaze();
- 
