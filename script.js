@@ -102,11 +102,35 @@ function drawMaze() {
   }
 
   // Desenha saída (baú)
-  if (imgBau.complete && imgBau.naturalWidth > 0) {
-    ctx.drawImage(imgBau, exit.x * TILE_SIZE, exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-  } else {
-    ctx.fillStyle = "gold";
-    ctx.fillRect(exit.x * TILE_SIZE, exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+ // Desenha saída (baú)
+if (imgBau.complete && imgBau.naturalWidth > 0) {
+
+  const chestSize = TILE_SIZE * 0.55;
+
+  ctx.drawImage(
+
+    imgBau,
+
+    exit.x * TILE_SIZE + (TILE_SIZE - chestSize) / 2,
+
+    exit.y * TILE_SIZE + (TILE_SIZE - chestSize) / 2,
+
+    chestSize,
+
+    chestSize
+  );
+
+} else {
+
+  ctx.fillStyle = "gold";
+
+  ctx.fillRect(
+    exit.x * TILE_SIZE,
+    exit.y * TILE_SIZE,
+    TILE_SIZE,
+    TILE_SIZE
+  );
+}
   }
 
   // Desenha herói
