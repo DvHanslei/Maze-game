@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
   <head>
-    <meta charser="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maze Game</title>
-      <link rel="stylesheet" href="style.css">
-    </head>
+    <link rel="stylesheet" href="estilo.css">
+  </head>
+  <body>
+    <div class="game-wrapper">
+      <h1>Maze Game</h1>
+      <div class="info">
+        <p>Fase: <span id="leval">1</span></p>
+        <p>Tempo: <span id="Time">0</span>s</p>
+      </div>
 
-  <body><title>Maze Game</title>
-     <script src="script.js"></script>
-  <div class="game-wrapper">
+      <canvas id="gameCanvas"></canvas>
 
-    <h1>Maze Game</h1>
-
-    <div class="info">
-      <p>Fase: <span id="leval">1</span></p>
-      <p>Tempos: <span id="Time">0</span>s</p>
-    </div>
-    
-    <canvas id="gameCanvas"></canvas>
-    
-    <div class="middle-controls">
-      <button id="up">↑</button>
-
+      <div class="middle-controls">
+        <button id="up">↑</button>
         <div class="middle-buttonss">
-        <button id= "left">←</button>
-        <button id= "down">↓</button>
-        <button id= "rigth">→</button>
+          <button id="left">←</button>
+          <button id="down">↓</button>
+          <button id="rigth">→</button>
+        </div>
       </div>
-      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
