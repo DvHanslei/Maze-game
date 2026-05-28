@@ -3,8 +3,8 @@ const ctx = canvas.getContext("2d");
 canvas.width = 600;
 canvas.height = 600;
 
-const levelText = document.getElementById("level");
-const timeText = document.getElementById("time");
+const levelText = document.getElementById("leval");
+const timeText = document.getElementById("Time");
 
 const TILE_SIZE = 30;
 let rows = 20;
@@ -69,8 +69,8 @@ function createMaze() {
   maze[rows - 2][cols - 2] = 0;
   player.x = 1;
   player.y = 1;
-  exit.x = cols - 3;
-  exit.y = rows - 3;
+  exit.x = cols - 2;
+  exit.y = rows - 2;
 }
 
 function shuffle(array) {
@@ -89,10 +89,10 @@ function drawMaze() {
       if (maze[y][x] === 1) {
         // Tenta desenhar imagem da parede, senão usa cor
         if (imgParede.complete && imgParede.naturalWidth > 0) {
-          ctx.drawImage(imgParede, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE) /2;
+          ctx.drawImage(imgParede, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         } else {
           ctx.fillStyle = "#333";
-          ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE) /2;
+          ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         }
       } else {
         ctx.fillStyle = "#ccc";
@@ -137,10 +137,12 @@ function movePlayer(dx, dy) {
 
 function checkWin() {
   if (player.x === exit.x && player.y === exit.y) {
-    level;
+    level++;
     levelText.textContent = level;
     if (rows < 39) {
-    
+      rows += 2;
+      cols += 2;
+    }
     createMaze();
     drawMaze();
     alert("Fase concluída! 🎉");
@@ -160,9 +162,8 @@ window.addEventListener("keydown", (e) => {
 document.getElementById("up").addEventListener("click", () => movePlayer(0, -1));
 document.getElementById("down").addEventListener("click", () => movePlayer(0, 1));
 document.getElementById("left").addEventListener("click", () => movePlayer(-1, 0));
-document.getElementById("right").addEventListener("click", () => movePlayer(1, 0));
+document.getElementById("rigth").addEventListener("click", () => movePlayer(1, 0));
 
 // Iniciar jogo
 createMaze();
 drawMaze();
-
