@@ -1,77 +1,87 @@
 * {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background: #111;
   color: white;
   font-family: Arial, sans-serif;
-
   display: flex;
   justify-content: center;
-  aling-items: center;
-
+  align-items: center;
   min-height: 100vh;
 }
+
 .game-wrapper {
-  text-alingn: center;
+  text-align: center;
   width: 100%;
   max-width: 700px;
   padding: 20px;
 }
+
 h1 {
-  .info {
-    display: flex;
-    justify-content: space-around;
-    margin-button: 15px;
+  margin-bottom: 15px;
+  font-size: 28px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+canvas {
+  background: #222;
+  border: 4px solid white;
+  width: 100%;
+  max-width: 600px;
+  touch-action: none;
+  display: block;
+  margin: 0 auto;
+}
+
+.middle-controls {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.middle-buttonss {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  width: 80px;
+  height: 80px;
+  font-size: 30px;
+  border: none;
+  border-radius: 12px;
+  background: #444;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #666;
+}
+
+#restart {
+  margin-top: 20px;
+  width: 200px;
+  height: 60px;
+  font-size: 20px;
+}
+
+@media (min-width: 768px) {
+  .middle-controls {
+    max-width: 400px;
+    margin: 20px auto;
   }
-  canvas {
-    background: #222;
-    border: 4px solid white;
-
-    width: 100%;
-    max-width: 600px;
-
-    tounch-action: none;
-  }
-  .mobile-controls {
-    margin-top: 20px;
-
-    display: flex;
-    flex-direction: column;
-    aling-items: center;
-    gap: 15px;
-  }
-  button {
-    width: 80px;
-    heigth: 80px;
-
-    font-size: 30px;
-
-    border: none;
-    border-radius: 12px;
-
-    background: #444;
-    color: white;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-  }
-  button:houver {
-    background: #666;
-  }
-
-  #restart {
-    margin-top: 20px;
-    width: 200px;
-    height: 60px;
-    font-size: 20px;
-  }
-  @media (min-width: 768px) {
-    .mobile-controls {
-      max-width: 400px;
-      margin: 20px auto;
-    }
-  }
+}
