@@ -10,8 +10,8 @@ const TILE_SIZE = 30;
 let rows = 20;
 let cols = 20;
 let maze = [];
-let player = { x: -1, y: -1 };
-let exit = { x: cols -2, y: rows -2 };
+let player = { x: 1, y: 1 };
+let exit = { x: cols - 2, y: rows - 2 };
 let level = 1;
 let timer = 0;
 
