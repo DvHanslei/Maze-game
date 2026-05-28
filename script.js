@@ -66,12 +66,13 @@ function createMaze() {
 
   carve(1, 1);
   
-  // Mantém sua lógica original intacta
+  // Limpa o ponto inicial e o ponto final
   maze[1][1] = 0;
   maze[rows - 2][cols - 2] = 0;
   
-  // Garante que o caminho até o baú não fique bloqueado por paredes aleatórias
-  maze[rows - 2][cols - 3] = 0;
+  // CORREÇÃO: Abre caminho garantido conectando o baú ao labirinto gerado
+  maze[rows - 2][cols - 3] = 0; 
+  maze[rows - 3][cols - 2] = 0; 
 
   player.x = 1;
   player.y = 1;
@@ -93,7 +94,6 @@ function drawMaze() {
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       if (maze[y][x] === 1) {
-        // Tenta desenhar imagem da parede, senão usa cor
         if (imgParede.complete && imgParede.naturalWidth > 0) {
           ctx.drawImage(imgParede, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         } else {
@@ -169,4 +169,3 @@ document.getElementById("right").addEventListener("click", () => movePlayer(1, 0
 // Iniciar jogo
 createMaze();
 drawMaze();
-
