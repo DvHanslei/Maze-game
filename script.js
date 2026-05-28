@@ -3,8 +3,8 @@ const ctx = canvas.getContext("2d");
 canvas.width = 600;
 canvas.height = 600;
 
-const levelText = document.getElementById("leval");
-const timeText = document.getElementById("Time");
+const levelText = document.getElementById("level");
+const timeText = document.getElementById("time");
 
 const TILE_SIZE = 30;
 let rows = 20;
@@ -69,8 +69,8 @@ function createMaze() {
   maze[rows - 2][cols - 2] = 0;
   player.x = 1;
   player.y = 1;
-  exit.x = cols - 2;
-  exit.y = rows - 2;
+  exit.x = cols - 3;
+  exit.y = rows - 3;
 }
 
 function shuffle(array) {
@@ -162,7 +162,7 @@ window.addEventListener("keydown", (e) => {
 document.getElementById("up").addEventListener("click", () => movePlayer(0, -1));
 document.getElementById("down").addEventListener("click", () => movePlayer(0, 1));
 document.getElementById("left").addEventListener("click", () => movePlayer(-1, 0));
-document.getElementById("rigth").addEventListener("click", () => movePlayer(1, 0));
+document.getElementById("right").addEventListener("click", () => movePlayer(1, 0));
 
 // Iniciar jogo
 createMaze();
