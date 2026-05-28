@@ -64,20 +64,16 @@ function createMaze() {
 
   carve(1, 1);
   maze[1][1] = 0;
+  
+  // GARANTE O BAÚ LIVRE: Força o caminho e os blocos ao redor a ficarem abertos (0)
+  maze[rows - 2][cols - 2] = 0;
+  maze[rows - 2][cols - 3] = 0;
+  maze[rows - 3][cols - 2] = 0;
+
   player.x = 1;
   player.y = 1;
-
-  // Coloca o baú sempre num caminho aberto perto do canto inferior direito
-  let found = false;
-  for (let dy = rows - 2; dy >= 1 && !found; dy--) {
-    for (let dx = cols - 2; dx >= 1 && !found; dx--) {
-      if (maze[dy][dx] === 0) {
-        exit.x = dx;
-        exit.y = dy;
-        found = true;
-      }
-    }
-  }
+  exit.x = cols - 2;
+  exit.y = rows - 2;
 }
 
 function shuffle(array) {
@@ -145,10 +141,9 @@ function checkWin() {
   if (player.x === exit.x && player.y === exit.y) {
     level++;
     if (levelText) levelText.textContent = level;
-    if (rows < 39) {
-      rows += 2;
-      cols += 2;
-    }
+    
+    // O código que aumentava as variáveis 'rows' e 'cols' foi removido daqui!
+    
     createMaze();
     drawMaze();
     alert("Fase concluída! 🎉");
@@ -164,7 +159,7 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-// Botões mobile — tenta os dois nomes (rigth e right)
+// Botões mobile
 function addBtn(id, dx, dy) {
   const btn = document.getElementById(id);
   if (btn) btn.addEventListener("click", () => movePlayer(dx, dy));
