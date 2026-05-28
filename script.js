@@ -3,8 +3,8 @@ const ctx = canvas.getContext("2d");
 canvas.width = 600;
 canvas.height = 600;
 
-const levelText = document.getElementById("level");
-const timeText = document.getElementById("time");
+const levelText = document.getElementById("leval");
+const timeText = document.getElementById("Time");
 
 const TILE_SIZE = 30;
 let rows = 20;
@@ -102,35 +102,11 @@ function drawMaze() {
   }
 
   // Desenha saída (baú)
- // Desenha saída (baú)
-if (imgBau.complete && imgBau.naturalWidth > 0) {
-
-  const chestSize = TILE_SIZE * 0.55;
-
-  ctx.drawImage(
-
-    imgBau,
-
-    exit.x * TILE_SIZE + (TILE_SIZE - chestSize) / 2,
-
-    exit.y * TILE_SIZE + (TILE_SIZE - chestSize) / 2,
-
-    chestSize,
-
-    chestSize
-  );
-
-} else {
-
-  ctx.fillStyle = "gold";
-
-  ctx.fillRect(
-    exit.x * TILE_SIZE,
-    exit.y * TILE_SIZE,
-    TILE_SIZE,
-    TILE_SIZE
-  );
-}
+  if (imgBau.complete && imgBau.naturalWidth > 0) {
+    ctx.drawImage(imgBau, exit.x * TILE_SIZE, exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  } else {
+    ctx.fillStyle = "gold";
+    ctx.fillRect(exit.x * TILE_SIZE, exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
 
   // Desenha herói
@@ -186,7 +162,7 @@ window.addEventListener("keydown", (e) => {
 document.getElementById("up").addEventListener("click", () => movePlayer(0, -1));
 document.getElementById("down").addEventListener("click", () => movePlayer(0, 1));
 document.getElementById("left").addEventListener("click", () => movePlayer(-1, 0));
-document.getElementById("right").addEventListener("click", () => movePlayer(1, 0));
+document.getElementById("rigth").addEventListener("click", () => movePlayer(1, 0));
 
 // Iniciar jogo
 createMaze();
