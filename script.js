@@ -1,7 +1,7 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
-canvas.width = 600;
-canvas.height = 600;
+canvas.width = 700;
+canvas.height = 700;
 
 const levelText = document.getElementById("level");
 const timeText = document.getElementById("time");
@@ -139,6 +139,7 @@ function checkWin() {
   if (player.x === exit.x && player.y === exit.y) {
     level;
     levelText.textContent = level;
+    if (rows < 39) {
     
     createMaze();
     drawMaze();
