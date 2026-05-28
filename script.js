@@ -6,7 +6,7 @@ canvas.height = 600;
 const levelText = document.getElementById("level");
 const timeText = document.getElementById("time");
 
-const TILE_SIZE = 20;
+const TILE_SIZE = 32;
 let rows = 20;
 let cols = 20;
 let maze = [];
