@@ -103,7 +103,7 @@ function drawMaze() {
 
   // Desenha saída (baú)
   if (imgBau.complete && imgBau.naturalWidth > 0) {
-    ctx.drawImage(imgBau, exit.x * TILE_SIZE, exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    ctx.drawImage(imgBau, exit.x * (), exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   } else {
     ctx.fillStyle = "gold";
     ctx.fillRect(exit.x * TILE_SIZE, exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
