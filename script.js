@@ -89,7 +89,7 @@ function drawMaze() {
       if (maze[y][x] === 1) {
         // Tenta desenhar imagem da parede, senão usa cor
         if (imgParede.complete && imgParede.naturalWidth > 0) {
-          ctx.drawImage(imgParede, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+          ctx.drawImage(imgParede, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE);
         } else {
           ctx.fillStyle = "#333";
           ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
