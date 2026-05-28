@@ -4,7 +4,7 @@ canvas.width = 600;
 canvas.height = 600;
 
 const levelText = document.getElementById("leval");
-const timeText = document.getElementById("Time");
+const timeText = document.getElementById("time");
 
 const TILE_SIZE = 30;
 let rows = 20;
