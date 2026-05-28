@@ -1,17 +1,14 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
-// Mantém o tamanho do canvas idêntico ao seu original
 canvas.width = 600;
 canvas.height = 600;
 
-const levelText = document.getElementById("level");
-const timeText = document.getElementById("time");
+const levelText = document.getElementById("leval");
+const timeText = document.getElementById("Time");
 
-// Mudança crucial: tamanho ímpar para o algoritmo funcionar sem criar paredes extras,
-// ajustando o tamanho do bloco para caber perfeitamente nos 600px do canvas.
-const TILE_SIZE = 28; 
-let rows = 21;
-let cols = 21;
+const TILE_SIZE = 30;
+let rows = 20;
+let cols = 20;
 let maze = [];
 let player = { x: 1, y: 1 };
 let exit = { x: cols - 2, y: rows - 2 };
@@ -21,16 +18,14 @@ let timer = 0;
 // Imagens
 const imgHeroi = new Image();
 imgHeroi.src = "Hansleizito.png";
-
 const imgBau = new Image();
 imgBau.src = "bauzito.png";
-
 const imgParede = new Image();
 imgParede.src = "paredezito.png";
 
 setInterval(() => {
   timer++;
-  timeText.textContent = timer;
+  if (timeText) timeText.textContent = timer;
 }, 1000);
 
 function createMaze() {
@@ -68,15 +63,21 @@ function createMaze() {
   }
 
   carve(1, 1);
-  
-  // Posiciona as variáveis e limpa os caminhos inicial e final de forma precisa
   maze[1][1] = 0;
-  maze[rows - 2][cols - 2] = 0;
-
   player.x = 1;
   player.y = 1;
-  exit.x = cols - 2;
-  exit.y = rows - 2;
+
+  // Coloca o baú sempre num caminho aberto perto do canto inferior direito
+  let found = false;
+  for (let dy = rows - 2; dy >= 1 && !found; dy--) {
+    for (let dx = cols - 2; dx >= 1 && !found; dx--) {
+      if (maze[dy][dx] === 0) {
+        exit.x = dx;
+        exit.y = dy;
+        found = true;
+      }
+    }
+  }
 }
 
 function shuffle(array) {
@@ -106,7 +107,7 @@ function drawMaze() {
     }
   }
 
-  // Desenha saída (baú)
+  // Desenha o baú
   if (imgBau.complete && imgBau.naturalWidth > 0) {
     ctx.drawImage(imgBau, exit.x * TILE_SIZE, exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   } else {
@@ -114,7 +115,7 @@ function drawMaze() {
     ctx.fillRect(exit.x * TILE_SIZE, exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
 
-  // Desenha herói
+  // Desenha o herói
   if (imgHeroi.complete && imgHeroi.naturalWidth > 0) {
     ctx.drawImage(imgHeroi, player.x * TILE_SIZE, player.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   } else {
@@ -143,7 +144,11 @@ function movePlayer(dx, dy) {
 function checkWin() {
   if (player.x === exit.x && player.y === exit.y) {
     level++;
-    levelText.textContent = level;
+    if (levelText) levelText.textContent = level;
+    if (rows < 39) {
+      rows += 2;
+      cols += 2;
+    }
     createMaze();
     drawMaze();
     alert("Fase concluída! 🎉");
@@ -159,11 +164,16 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-// Botões mobile
-document.getElementById("up").addEventListener("click", () => movePlayer(0, -1));
-document.getElementById("down").addEventListener("click", () => movePlayer(0, 1));
-document.getElementById("left").addEventListener("click", () => movePlayer(-1, 0));
-document.getElementById("right").addEventListener("click", () => movePlayer(1, 0));
+// Botões mobile — tenta os dois nomes (rigth e right)
+function addBtn(id, dx, dy) {
+  const btn = document.getElementById(id);
+  if (btn) btn.addEventListener("click", () => movePlayer(dx, dy));
+}
+addBtn("up",    0, -1);
+addBtn("down",  0,  1);
+addBtn("left", -1,  0);
+addBtn("rigth", 1,  0);
+addBtn("right", 1,  0);
 
 // Iniciar jogo
 createMaze();
