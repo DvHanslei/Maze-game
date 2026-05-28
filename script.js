@@ -165,3 +165,8 @@ document.getElementById("right").addEventListener("click", () => movePlayer(1, 0
 // Iniciar jogo
 createMaze();
 drawMaze();
+imgHeroi.onload = carregarJogo;
+
+imgBau.onload = carregarJogo;
+
+imgParede.onload = carregarJogo;
