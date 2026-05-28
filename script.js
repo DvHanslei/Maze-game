@@ -1,12 +1,12 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
-canvas.width = 700;
-canvas.height = 700;
+canvas.width = 600;
+canvas.height = 600;
 
 const levelText = document.getElementById("level");
 const timeText = document.getElementById("time");
 
-const TILE_SIZE = 32;
+const TILE_SIZE = 30;
 let rows = 20;
 let cols = 20;
 let maze = [];
