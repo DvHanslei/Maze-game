@@ -140,8 +140,8 @@ function checkWin() {
     level++;
     levelText.textContent = level;
     if (rows < 39) {
-      rows += 2;
-      cols += 2;
+      rows = 2;
+      cols = 2;
     }
     createMaze();
     drawMaze();
