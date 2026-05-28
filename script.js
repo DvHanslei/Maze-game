@@ -162,7 +162,7 @@ window.addEventListener("keydown", (e) => {
 document.getElementById("up").addEventListener("click", () => movePlayer(0, -1));
 document.getElementById("down").addEventListener("click", () => movePlayer(0, 1));
 document.getElementById("left").addEventListener("click", () => movePlayer(-1, 0));
-document.getElementById("rigth").addEventListener("click", () => movePlayer(1, 0));
+document.getElementById("right").addEventListener("click", () => movePlayer(1, 0));
 
 // Iniciar jogo
 createMaze();
