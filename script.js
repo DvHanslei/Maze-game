@@ -137,11 +137,11 @@ function movePlayer(dx, dy) {
 
 function checkWin() {
   if (player.x === exit.x && player.y === exit.y) {
-    level++;
+    level;
     levelText.textContent = level;
     if (rows < 39) {
-      rows = 2;
-      cols = 2;
+      rows += 2;
+      cols += 2;
     }
     createMaze();
     drawMaze();
