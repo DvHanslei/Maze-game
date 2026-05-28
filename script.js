@@ -65,8 +65,14 @@ function createMaze() {
   }
 
   carve(1, 1);
+  
+  // Mantém sua lógica original intacta
   maze[1][1] = 0;
   maze[rows - 2][cols - 2] = 0;
+  
+  // Garante que o caminho até o baú não fique bloqueado por paredes aleatórias
+  maze[rows - 2][cols - 3] = 0;
+
   player.x = 1;
   player.y = 1;
   exit.x = cols - 2;
@@ -163,3 +169,4 @@ document.getElementById("right").addEventListener("click", () => movePlayer(1, 0
 // Iniciar jogo
 createMaze();
 drawMaze();
+
