@@ -139,13 +139,15 @@ function checkWin() {
   if (player.x === exit.x && player.y === exit.y) {
     level++;
     levelText.textContent = level;
-    
+   
+
+
     }
     createMaze();
     drawMaze();
     alert("Fase concluída! 🎉");
   }
-}
+
 
 window.addEventListener("keydown", (e) => {
   switch (e.key) {
