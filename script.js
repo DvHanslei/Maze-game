@@ -1,14 +1,16 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
-canvas.width = 600;
-canvas.height = 600;
+
+// Deixamos a definição de largura e altura dinâmicas baseado no TILE_SIZE e tamanho da matriz
+const TILE_SIZE = 30;
+let rows = 20;
+let cols = 20;
+canvas.width = cols * TILE_SIZE;
+canvas.height = rows * TILE_SIZE;
 
 const levelText = document.getElementById("leval");
 const timeText = document.getElementById("Time");
 
-const TILE_SIZE = 30;
-let rows = 20;
-let cols = 20;
 let maze = [];
 let player = { x: 1, y: 1 };
 let exit = { x: cols - 2, y: rows - 2 };
@@ -31,6 +33,10 @@ setInterval(() => {
 }, 1000);
 
 function createMaze() {
+  // Ajusta o tamanho da tela para o tamanho atual do labirinto
+  canvas.width = cols * TILE_SIZE;
+  canvas.height = rows * TILE_SIZE;
+
   maze = [];
   for (let y = 0; y < rows; y++) {
     let row = [];
@@ -65,12 +71,30 @@ function createMaze() {
   }
 
   carve(1, 1);
-  maze[1][1] = 0;
-  maze[rows - 2][cols - 2] = 0;
+  maze[1][1] = 0; // Garante o herói no chão
+
   player.x = 1;
   player.y = 1;
-  exit.x = cols - 2;
-  exit.y = rows - 2;
+
+  // CORREÇÃO AQUI: Procura dinamicamente um caminho livre (0) para o baú na quina inferior direita
+  let foundExit = false;
+  // Vasculha o mapa de trás para frente a partir do canto inferior direito
+  for (let y = rows - 2; y > 0 && !foundExit; y--) {
+    for (let x = cols - 2; x > 0 && !foundExit; x--) {
+      if (maze[y][x] === 0 && (x !== 1 || y !== 1)) { // Evita colocar no mesmo quadrado do jogador
+        exit.x = x;
+        exit.y = y;
+        foundExit = true;
+      }
+    }
+  }
+
+  // Caso extremo de segurança se o labirinto travar o canto (força uma abertura)
+  if (!foundExit) {
+    exit.x = cols - 2;
+    exit.y = rows - 2;
+    maze[exit.y][exit.x] = 0;
+  }
 }
 
 function shuffle(array) {
@@ -87,7 +111,6 @@ function drawMaze() {
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
       if (maze[y][x] === 1) {
-        // Tenta desenhar imagem da parede, senão usa cor
         if (imgParede.complete && imgParede.naturalWidth > 0) {
           ctx.drawImage(imgParede, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         } else {
@@ -103,7 +126,7 @@ function drawMaze() {
 
   // Desenha saída (baú)
   if (imgBau.complete && imgBau.naturalWidth > 0) {
-    ctx.drawImage(imgBau, exit.x * (), exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    ctx.drawImage(imgBau, exit.x * TILE_SIZE, exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   } else {
     ctx.fillStyle = "gold";
     ctx.fillRect(exit.x * TILE_SIZE, exit.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
@@ -158,11 +181,13 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-// Botões mobile
+// Botões mobile - Corrigido erro de digitação de "rigth" para "right" se necessário
+const btnRight = document.getElementById("right") || document.getElementById("rigth");
+if(btnRight) btnRight.addEventListener("click", () => movePlayer(1, 0));
+
 document.getElementById("up").addEventListener("click", () => movePlayer(0, -1));
 document.getElementById("down").addEventListener("click", () => movePlayer(0, 1));
 document.getElementById("left").addEventListener("click", () => movePlayer(-1, 0));
-document.getElementById("rigth").addEventListener("click", () => movePlayer(1, 0));
 
 // Iniciar jogo
 createMaze();
